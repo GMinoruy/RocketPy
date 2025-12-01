@@ -219,7 +219,7 @@ def test_weathercock_zero_gives_fixed_attitude(flight_weathercock_zero):
     ----------
     example_plain_env : rocketpy.Environment
         A basic environment fixture for flight simulation.
-    point_mass_rocket : rocketpy.PointMassMotor
+    point_mass_rocket : rocketpy.PointMassRocket
         A point mass rocket fixture for 3-DOF simulation.
     """
     flight = flight_weathercock_zero
