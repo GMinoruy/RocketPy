@@ -265,10 +265,8 @@ def test_weathercock_aligned_no_evolution(flight_weathercock_pos):
 
     Parameters
     ----------
-    example_plain_env : rocketpy.Environment
-        A basic environment fixture for flight simulation.
-    point_mass_rocket : rocketpy.PointMassRocket
-        A point mass rocket fixture for 3-DOF simulation.
+    flight_weathercock_pos : rocketpy.Flight
+        A Flight fixture configured for weathercocking tests with a nonzero initial angle.
     """
     flight = flight_weathercock_pos
     # Body pointing in +x direction (into the wind for vx=50)
