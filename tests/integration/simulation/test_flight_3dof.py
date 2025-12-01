@@ -217,10 +217,9 @@ def test_weathercock_zero_gives_fixed_attitude(flight_weathercock_zero):
 
     Parameters
     ----------
-    example_plain_env : rocketpy.Environment
-        A basic environment fixture for flight simulation.
-    point_mass_rocket : rocketpy.PointMassRocket
-        A point mass rocket fixture for 3-DOF simulation.
+    flight_weathercock_zero : rocketpy.simulation.Flight
+        A Flight fixture with weathercock_coeff set to 0. Used to verify that
+        the attitude (quaternion) does not evolve when weathercocking is disabled.
     """
     flight = flight_weathercock_zero
     # Create a state vector with non-zero velocity (to have freestream)
