@@ -427,7 +427,7 @@ The ``weathercock_coeff`` parameter controls the rate at which the rocket
 aligns with the relative wind:
 
 - ``weathercock_coeff=0``: No weathercocking (original fixed-attitude behavior)
-- ``weathercock_coeff=1.0``: Default moderate alignment rate
+- ``weathercock_coeff=1.0``: Moderate alignment rate
 - ``weathercock_coeff>1.0``: Faster alignment (more stable rocket)
 
 Effect of Weathercocking Coefficient
