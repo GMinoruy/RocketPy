@@ -3127,6 +3127,7 @@ class Flight:
 
         results = []
         for i, t in enumerate(time_values):
+            # Convert angle of attack from degrees to radians
             alpha_rad = np.deg2rad(aoa_values[i])
             mach = mach_values[i]
             sm = self.rocket.get_stability_margin_from_alpha(alpha_rad, mach, t)

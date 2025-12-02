@@ -689,8 +689,11 @@ class Rocket:
         where CN(α) is the lift coefficient as a function of angle of attack
         and X_cp is the center of pressure position of each aerodynamic surface.
         """
+        # Threshold for numerical zero checks
+        epsilon = 1e-10
+
         # Handle edge case where alpha is effectively zero
-        if abs(alpha) < 1e-10:
+        if abs(alpha) < epsilon:
             return self.cp_position.get_value_opt(mach)
 
         total_cn = 0.0
@@ -707,7 +710,7 @@ class Rocket:
             total_cn += cn
             weighted_cp += cn * surface_cp
 
-        if abs(total_cn) < 1e-10:
+        if abs(total_cn) < epsilon:
             return self.cp_position.get_value_opt(mach)
 
         return weighted_cp / total_cn
