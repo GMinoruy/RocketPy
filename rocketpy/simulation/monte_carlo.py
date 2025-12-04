@@ -14,6 +14,7 @@ latest documentation.
 """
 
 import json
+import csv
 import os
 import traceback
 import warnings
@@ -587,6 +588,25 @@ class MonteCarlo:
         return (
             json.dumps(outputs_dict, cls=RocketPyEncoder, **self._export_config) + "\n"
         )
+
+    def export_results(self, output_filename, output_format):
+        txt_data = []
+        with open(self.filename, "r", encoding="utf-8") as f:
+            for line in enumerate(f):
+                line = line.strip()
+                data = json.loads(line)
+                txt_data.append(data)
+
+        output_format = output_format.strip().lower()
+        if output_format == "json":
+            with open(f"{output_filename}.json", "w", encoding="utf-8") as f:
+                json.dump(txt_data, f, indent=4)
+        elif output_format == "csv":
+            output_csv_header = txt_data[0].keys()
+            with open(f"{output_filename}.csv", "w", newLine='', encoding="utf-8") as f:
+                output_writer = csv.DictWriter(f, fieldnames=output_csv_header)
+                output_writer.writeheader()
+                output_writer.writerows(txt_data)
 
     def __terminate_simulation(self):
         """
