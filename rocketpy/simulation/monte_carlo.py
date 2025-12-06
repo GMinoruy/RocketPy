@@ -601,12 +601,14 @@ class MonteCarlo:
         if output_format == "json":
             with open(f"{output_filename}.json", "w", encoding="utf-8") as f:
                 json.dump(txt_data, f, indent=4)
+                _SimMonitor.reprint(f"Results saved to {Path(output_filename)} as .json file")
         elif output_format == "csv":
             output_csv_header = txt_data[0].keys()
             with open(f"{output_filename}.csv", "w", newline= "") as f:
                 output_writer = csv.DictWriter(f, fieldnames=output_csv_header)
                 output_writer.writeheader()
                 output_writer.writerows(txt_data)
+                _SimMonitor.reprint(f"Results saved to {Path(output_filename)} as .csv file")
 
     def __terminate_simulation(self):
         """
