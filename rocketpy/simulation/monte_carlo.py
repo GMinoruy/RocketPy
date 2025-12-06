@@ -591,8 +591,8 @@ class MonteCarlo:
 
     def export_results(self, output_filename, output_format):
         txt_data = []
-        with open(self.filename, "r", encoding="utf-8") as f:
-            for line in enumerate(f):
+        with open(f"{self.filename}.outputs.txt", "r", encoding="utf-8") as f:
+            for line in f:
                 line = line.strip()
                 data = json.loads(line)
                 txt_data.append(data)
@@ -603,7 +603,7 @@ class MonteCarlo:
                 json.dump(txt_data, f, indent=4)
         elif output_format == "csv":
             output_csv_header = txt_data[0].keys()
-            with open(f"{output_filename}.csv", "w", newLine='', encoding="utf-8") as f:
+            with open(f"{output_filename}.csv", "w", newline= "") as f:
                 output_writer = csv.DictWriter(f, fieldnames=output_csv_header)
                 output_writer.writeheader()
                 output_writer.writerows(txt_data)
