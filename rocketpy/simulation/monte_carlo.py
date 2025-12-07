@@ -590,6 +590,20 @@ class MonteCarlo:
         )
 
     def export_results(self, output_filename, output_format):
+        """Converts the default Monte Carlo .txt output to .cvs or .json file
+        depending on the user's choice
+
+        Parameters
+        ----------
+        output_filename : str
+            Name of the file in which the converted data will be saved
+        output_format : str
+            Format of the output file
+
+        Returns
+        -------
+        None
+        """
         txt_data = []
         with open(f"{self.filename}.outputs.txt", "r", encoding="utf-8") as f:
             for line in f:
