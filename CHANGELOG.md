@@ -31,6 +31,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 Attention: The newest changes should be on top -->
 
 ### Added
+
+- 
+
+### Changed
+
+- 
+
+### Fixed
+
+- 
+
+## [v1.12.0] - 2026-03-08
+
+### Added
+
 - TST: Add acceptance tests for 3DOF flight simulation based on Bella Lui rocket [#914] (https://github.com/RocketPy-Team/RocketPy/pull/914_
 - ENH: Add background map auto download functionality to Monte Carlo plots [#896](https://github.com/RocketPy-Team/RocketPy/pull/896)
 - MNT: net thrust addition to 3 dof in flight class [#907] (https://github.com/RocketPy-Team/RocketPy/pull/907)
