@@ -31,6 +31,10 @@ class PointMassRocket(Rocket):
         as :class:`rocketpy.Rocket`, including 1D (Mach-only) and 7D
         (alpha, beta, mach, reynolds, pitch_rate, yaw_rate, roll_rate)
         definitions.
+    weathercock_coeff : float, optional
+        Proportionality coefficient for the alignment rate of the point-mass
+        rocket body axis with the relative wind direction in 3-DOF
+        simulations. Must be non-negative. Default is 0.0.
 
     Attributes
     ----------
@@ -63,6 +67,9 @@ class PointMassRocket(Rocket):
         Convenience wrapper for power-off drag as a Mach-only function.
     power_on_drag_by_mach : Function
         Convenience wrapper for power-on drag as a Mach-only function.
+    weathercock_coeff : float
+        Proportionality coefficient for weathercocking alignment in 3-DOF
+        simulations.
     """
 
     def __init__(
@@ -72,6 +79,7 @@ class PointMassRocket(Rocket):
         center_of_mass_without_motor: float,
         power_off_drag,
         power_on_drag,
+        weathercock_coeff: float = 0.0,
     ):
         self._center_of_mass_without_motor_pointmass = center_of_mass_without_motor
         self._center_of_dry_mass_position = center_of_mass_without_motor
@@ -83,6 +91,8 @@ class PointMassRocket(Rocket):
         self.dry_I_12 = 0.0
         self.dry_I_13 = 0.0
         self.dry_I_23 = 0.0
+
+        self.weathercock_coeff = float(weathercock_coeff)
 
         # Call base init with safe defaults
         super().__init__(
