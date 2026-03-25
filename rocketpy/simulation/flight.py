@@ -26,6 +26,7 @@ from ..tools import (
     quaternions_to_precession,
     quaternions_to_spin,
 )
+from .events import Event
 
 ODE_SOLVER_MAP = {
     "RK23": RK23,
@@ -617,6 +618,19 @@ class Flight:
         self.simulation_mode = simulation_mode
         self.ode_solver = ode_solver
 
+        # Events
+        def out_of_rail_trigger(state):
+            return (
+                state[0] ** 2 + state[1] ** 2 + (state[2] - self.env.elevation) ** 2
+                >= self.effective_1rl**2
+            )
+
+        self.out_of_rail_event = Event(
+            trigger=out_of_rail_trigger,
+            action=self.__handle_out_of_rail_event,
+            name="Out of Rail Event",
+        )
+
         # Controller initialization
         self.__init_controllers()
 
@@ -1014,14 +1028,12 @@ class Flight:
         bool
             True if an event occurred and the simulation should break.
         """
+        # TODO: make all these 3 events be handled with the Events class
         # Check for first out of rail event
-        if len(self.out_of_rail_state) == 1 and (
-            self.y_sol[0] ** 2
-            + self.y_sol[1] ** 2
-            + (self.y_sol[2] - self.env.elevation) ** 2
-            >= self.effective_1rl**2
+        if len(self.out_of_rail_state) == 1 and self.out_of_rail_event.trigger(
+            self.y_sol
         ):
-            return self.__handle_out_of_rail_event(phase, phase_index, node_index)
+            return self.out_of_rail_event.action(phase, phase_index, node_index)
 
         # Check for apogee event
         # TODO: negative vz doesn't really mean apogee. Improve this.
