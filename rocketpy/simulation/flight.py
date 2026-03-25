@@ -1030,10 +1030,9 @@ class Flight:
         """
         # TODO: make all these 3 events be handled with the Events class
         # Check for first out of rail event
-        if len(self.out_of_rail_state) == 1 and self.out_of_rail_event.trigger(
-            self.y_sol
-        ):
-            return self.out_of_rail_event.action(phase, phase_index, node_index)
+        if len(self.out_of_rail_state) == 1:
+            if self.out_of_rail_event.trigger(self.y_sol):
+                return self.out_of_rail_event.action(phase, phase_index, node_index)
 
         # Check for apogee event
         # TODO: negative vz doesn't really mean apogee. Improve this.
