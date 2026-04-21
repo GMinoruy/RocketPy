@@ -224,6 +224,10 @@ def test_export_results_creates_csv_and_json_files(monte_carlo_calisto, tmp_path
             assert data[0]["apogee"] == 100
             assert data[0]["max_velocity"] == 255
     finally:
-        os.remove("monte_carlo_test.errors.txt")
-        os.remove("monte_carlo_test.inputs.txt")
-        os.remove("monte_carlo_test.outputs.txt")
+        for filepath in [
+            "monte_carlo_test.errors.txt",
+            "monte_carlo_test.inputs.txt",
+            "monte_carlo_test.outputs.txt",
+        ]:
+            if os.path.exists(filepath):
+                os.remove(filepath)
