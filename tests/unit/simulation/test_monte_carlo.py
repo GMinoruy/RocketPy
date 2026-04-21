@@ -189,7 +189,7 @@ def test_estimate_confidence_interval_raises_type_error_for_invalid_statistic():
         mc.estimate_confidence_interval("apogee", statistic="not_a_function")
 
 
-def test_monte_carlo_export_results_to_csv_and_json_files(monte_carlo_calisto, tmp_path):
+def test_export_results_creates_csv_and_json_files(monte_carlo_calisto, tmp_path):
     """Checks that the export_results create .csv and .json files
 
     Parameters
