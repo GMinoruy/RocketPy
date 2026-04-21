@@ -209,7 +209,7 @@ def test_export_results_creates_csv_and_json_files(monte_carlo_calisto, tmp_path
         assert expected_file_in_csv.exists()
 
         mc.export_results(tmp_path / "mock_output_in_json", "json")
-        expected_file_in_json = tmp_path / f"{"mock_output_in_json"}.json"
+        expected_file_in_json = tmp_path / "mock_output_in_json.json"
         assert expected_file_in_json.exists()
     finally:
         os.remove("monte_carlo_test.errors.txt")
