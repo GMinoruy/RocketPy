@@ -2,6 +2,7 @@ import matplotlib as plt
 import numpy as np
 import pytest
 import json
+import csv
 import os
 
 from rocketpy.simulation import MonteCarlo
@@ -207,10 +208,21 @@ def test_export_results_creates_csv_and_json_files(monte_carlo_calisto, tmp_path
         mc.export_results(tmp_path / "mock_outputs_in_csv", "csv")
         expected_file_in_csv = tmp_path / f"{"mock_outputs_in_csv"}.csv"
         assert expected_file_in_csv.exists()
+        with open(expected_file_in_csv, "r") as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
+            assert len(rows) == 1
+            assert rows[0]["apogee"] == "100"
+            assert rows[0]["max_velocity"] == "255"
 
         mc.export_results(tmp_path / "mock_output_in_json", "json")
         expected_file_in_json = tmp_path / "mock_output_in_json.json"
         assert expected_file_in_json.exists()
+        with open(expected_file_in_json, "r") as f:
+            data = json.load(f)
+            assert len(data) == 1
+            assert data[0]["apogee"] == 100
+            assert data[0]["max_velocity"] == 255
     finally:
         os.remove("monte_carlo_test.errors.txt")
         os.remove("monte_carlo_test.inputs.txt")
